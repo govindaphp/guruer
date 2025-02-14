@@ -1,0 +1,186 @@
+h3.dash-text {
+    font-size: 24px;
+    padding-bottom: 11px;
+    padding-top: 8px;
+}
+
+.metrics-overview-right .card {
+    height: 100%;
+    border: none;
+}
+
+.metrics-overview-left .card {
+    height: 100% !important;
+    margin-bottom: 25px;
+    border: none;
+}
+canvas#sales-chart {
+    height: 300px !important;
+}
+
+.top-products .card {
+    border: none;
+}
+
+.top-products .filter-bar {
+    display: flex;
+    margin-bottom: 18px;
+    flex-direction: row !important;
+    padding-top: 0px;
+    justify-content: flex-end !important;
+    gap: 11px !important;
+}
+
+
+.customer-input-inner .form-control {
+    height: 50px;
+}
+
+.customer-input-inner .form-control:focus {
+    border-color: #f15a29;
+}
+.customer-input-inner .form-select {
+    height: 50px;
+    box-shadow: none;
+}
+.customer-input-inner .form-select:focus {
+ border-color: #f15a29;
+}
+
+.select2-container--default .select2-selection--multiple.select2-selection--clearable {
+    padding-right: 25px;
+    height: 50px;
+}
+.select2-container--default .select2-selection--multiple.select2-selection--clearable:focus {   
+   border-color: #f15a29;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: solid #dee2e6 1px !important;
+    outline: 0;
+}
+
+.customer-profile-right img#preview {
+    max-width: 100% !important;
+}
+
+.customer-profile-right label.upload-label span {
+    text-align: center;
+    padding-top: 5px;
+}
+
+.customer-profile-right label.upload-label {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-input-inner .form-group {
+    padding-bottom: 11px !important;
+}
+
+.top-products .filter-bar {
+    margin-top: -19px;
+}
+
+.row.top-products table.table.table-striped.table-borderless tbody, td, tfoot, th, thead, tr {
+    padding: 14px 8px !important;
+}
+
+/*header-css*/
+.user-top-drop i.fas.fa-user-circle {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.user-top-drop a.logout-btn {
+    padding: 9px 0 !important;
+    background: #f15a29;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.5;
+    color: #fff !important;
+    margin: 9px;
+    width: 75%;
+    text-align: center;
+}
+
+
+.user-top-drop {
+    gap: 14px !important;
+}
+
+.user-top-drop span.inner-top-value {
+    font-size: 18px;
+    font-family: "Nunito";
+    padding-left: 10px;
+}
+.user-top-drop i.fas.fa-user-circle {
+    font-size: 20px;
+}
+
+.user-top-drop a.dropdown-item {
+    border-bottom: solid 1px lightgray;
+    line-height: 2;
+}
+.user-top-drop a.dropdown-item:hover {
+    background-color: #54b088;
+    color: #fff;
+}
+
+.user-top-drop .dropdown-menu {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.user-top-drop span.cus-top-value {
+    font-size: 20px;
+    font-family: "Nunito";
+}
+
+
+.form-login .form-group .form-control {
+    padding: 4px 8px !important;
+}
+
+.user-top-drop .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    background: #e7e7e7;
+    text-align: center;
+    border-radius: 50px;
+  }
+
+.user-top-drop .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+  .user-top-drop .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+.user-top-drop .dropdown-content a:hover {
+    background-color: #55b088;
+    color: #fff !important;
+}
+
+  .user-top-drop .dropdown:hover .dropdown-content {
+    display: block; /* Optional for hover-based dropdown */
+  }
