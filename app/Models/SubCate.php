@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Catalogue extends Model
+class SubCate extends Model
 {
     use HasFactory;
 
-    protected $table = 'catalogue';
+    protected $table = 'sub_category';
     protected $primaryKey = 'id';
 
 

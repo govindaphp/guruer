@@ -51,13 +51,6 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="exampleInputName2">Price</label>
-                                        <input type="text" class="form-control" name="price" id="exampleInputName2" placeholder="Enter Price" value="{{ $customer->price }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="10"/>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label for="exampleSelectGender">Gender</label>
                                         <select id="exampleSelectGender" class="form-select" name="gender" >
                                             <option value="" disabled {{ !$customer->gender ? 'selected' : '' }}>Select Gender</option>
@@ -126,28 +119,6 @@
                                         @else
                                         <option value="1">Hindi</option>
                                         <option value="2">English</option>
-                                        @endif
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        @php
-                                        $subject_id =[];
-                                            if(!empty($userSubject)){
-                                                foreach ($userSubject as $key => $value) {
-                                                    $subject_id[] = $value->subject_id;
-                                                }
-                                            }
-                                        @endphp
-                                        <label for="exampleSelectGender">Subjects</label>
-                                        <select  name="subjects[]" class="form-select exampleInputColor" multiple="multiple" required>
-                                        @if(!empty($subjects))
-                                        @foreach ($subjects as $value)
-                                        <option value={{ $value->id }} @if(in_array($value->id, $subject_id)) selected @endif>{{ $value->subject_name }}</option>
-                                        @endforeach
-                                        @else
                                         @endif
                                         </select>
                                     </div>
@@ -277,7 +248,7 @@
         });
 
         $('#country').change(function () {
-            var cid = this.value;   //let cid = $(this).val(); we cal also write this.
+            var cid = this.value;  
             $.ajax({
                 url: "{{url('/getstate')}}",
                 type: "POST",

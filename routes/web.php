@@ -38,6 +38,8 @@ Route::group(['middleware'=>['vendor']],function(){
 
     Route::get('/vendorsDasboard',[VendorController::class, 'vendorDashboard']);
     Route::get('/ProfileSetting', [VendorController::class, 'ProfileSetting']);
+    Route::any('/updateSubject', [VendorController::class, 'updateSubject']);
+    Route::post('/guruSubject', [VendorController::class, 'guruSubject']);
     Route::get('/vendor-wallet', [VendorController::class, 'vendor_wallet']);
     Route::post('/profile_update', [VendorController::class, 'profile_update']);
     Route::get('/vendorProduct',[VendorController::class, 'vendorProduct']);
@@ -55,6 +57,9 @@ Route::group(['middleware'=>['vendor']],function(){
     Route::post('/vendorMessageSubmit',[VendorController::class, 'vendorMessageSubmit']);
 
 });
+Route::post('/getSubcategory',[VendorController::class, 'getSubcategory']);
+Route::post('/getSubject',[VendorController::class, 'getSubject']);
+
 /****************************[GURU AUTH END]************************************/
 
 Route::get('/google/redirect', [App\Http\Controllers\GoogleLoginController::class, 'redirectToGoogle'])->name('google.redirect');

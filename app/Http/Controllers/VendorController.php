@@ -13,6 +13,7 @@ use App\Models\Subject;
 use App\Models\GuruerSubject;
 use App\Models\UserLanguage;
 use App\Models\Category;
+use App\Models\SubCate;
 use Illuminate\Support\Facades\Auth;
 use Session;
 use Illuminate\Support\Facades\DB;
@@ -42,11 +43,6 @@ class VendorController extends Controller
         $data['userSubject'] = GuruerSubject::where('user_id', auth('user')->id())->get();
 
 		return view("front.vendor.guru_profile",$data);
-	}
-
-	public function vendor_wallet()
-	{
-		return view('front.vendor.guruer_wallet');
 	}
 
 	public function profile_update(Request $request)
@@ -81,7 +77,7 @@ class VendorController extends Controller
               ]);
 
               UserLanguage::where('user_id', auth('user')->id())->delete();
-              GuruerSubject::where('user_id', auth('user')->id())->delete();
+              
 
               $languages = $request->language;
               foreach($languages as $key=> $value)
@@ -92,14 +88,7 @@ class VendorController extends Controller
                 $userLanguage->save();
               }
 
-              $subjects = $request->subjects;
-              foreach($subjects as $key=> $value)
-			  {
-                $userSubject = new GuruerSubject();
-                $userSubject->user_id      = auth('user')->id();
-                $userSubject->subject_id   = $value;
-                $userSubject->save();
-              }
+             
 
 			// Handle video type and data
 			$videoType = $request->video_type; // 1 for embed, 2 for MP4
@@ -118,8 +107,6 @@ class VendorController extends Controller
 				if (!empty($customer->video_data) && file_exists($existingFilePath)) {
 					unlink($existingFilePath);
 				}
-
-
 				$videoFile->move(public_path('/admin/uploads/videos-profile'), $videoData);
 			}
 
@@ -140,13 +127,88 @@ class VendorController extends Controller
         Session::flash('message', 'Profile Update Sucessfully!');
         return redirect()->to('/ProfileSetting');
     }
+	public function updateSubject()
+	{
+		//This function is for update the guru subject
+		$user_id=auth('user')->id();
+
+		$data['category'] = DB::table('category')->select('id','category_name')->where('is_deleted',0)->where('is_active',1)->get();
+
+		$data['subcat'] = DB::table('guruer_subjects')
+							->where('user_id', $user_id)
+							->select(
+								'subcategory_id', 
+								DB::raw('MAX(id) as id') ,DB::raw('MAX(category_id) as category_id'),
+								DB::raw("GROUP_CONCAT(subject_id) as subject_id")
+							)
+							->groupBy('subcategory_id')
+							->get();
+
+
+		return view('front.vendor.guru_subject',$data);
+	}
+
+	public function getSubcategory(Request $request)
+	{
+		//This function is used for ajax
+		$categoryId=$request->categoryId;
+		$subcategories = DB::table('sub_category')->select('id','sub_cat_name')->where('category_id',$categoryId)->where('is_deleted',0)->where('is_active',1)->get();
+        return response()->json($subcategories);
+	}
+	public function getSubject(Request $request)
+	{
+		//This function is user to get subject list in ajax
+		$subcategoryId=$request->subcategoryId;
+		$subcategories = DB::table('subjects')->select('id','subject_name')->where('subcategory_id',$subcategoryId)->where('is_deleted',0)->where('is_active',1)->get();
+		
+        return response()->json($subcategories);
+	}
+	public function guruSubject(Request $request)
+	{
+		//This function is for update 
+		$subject_id=$request->subject_id;
+		$user_id=auth('user')->id();
+		
+		GuruerSubject::where('user_id', auth('user')->id())->delete();
+
+		foreach ($subject_id as $value) {
+			$subject = DB::table('subjects')
+							->select('category_id', 'subcategory_id')
+							->where('id', $value)
+							->first();
+		
+			if ($subject) {
+				// Check if the record already exists
+				$exists = DB::table('guruer_subjects')
+					->where([
+						['user_id', '=', auth('user')->id()],
+						['subject_id', '=', $value],
+						['category_id', '=', $subject->category_id],
+						['subcategory_id', '=', $subject->subcategory_id]
+					])->exists();
+		
+				// Insert only if it doesn't exist
+				if (!$exists) {
+					$userSubject = new GuruerSubject();
+					$userSubject->user_id = auth('user')->id();
+					$userSubject->subject_id = $value;
+					$userSubject->category_id = $subject->category_id;
+					$userSubject->subcategory_id = $subject->subcategory_id;
+					$userSubject->save();
+				}
+			}
+		}
+		Session::flash('message', 'Subjects Update Sucessfully!');
+        return redirect()->to('/updateSubject');
+	}
+	public function vendor_wallet()
+	{
+		return view('front.vendor.guruer_wallet');
+	}
 
 	public function loadchatResults_ajax(Request $request)
 	{
-
-
 		$user = Auth::guard("user")->user();
-
 		if (!$user) {
 			return redirect()->route('login')->with('error', 'Please login to access your wishlist.');
 		}
@@ -156,12 +218,7 @@ class VendorController extends Controller
 		else
 		$value_u_t = 2;
 
-
-
-
-
 		$searchKeyword = $request->input('keyword');
-
 		$data['allUsers'] = DB::table('users')
 			->select(
 				'users.id as id',
@@ -189,8 +246,8 @@ class VendorController extends Controller
 		return view('front.vendor.chat_ajax', $data);
 		if($user->user_type == 1)
 		return view('front.user.chat_ajax', $data);
-
 	}
+
 	public function vendorProduct()
 
 	{
