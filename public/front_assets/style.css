@@ -1973,12 +1973,58 @@ a.edit-btn:hover {
     border: solid 1px #f15a29;
 }
 div#editModal .modal-content {
-    width: 35%;
+    width: 100%;
     margin: auto;
     top: 143px;
-    padding: 30px;
+    padding: 10px;
     padding-top: 0px;
-    padding-bottom: 35px;
+    padding-bottom: 25px;
+}
+div#editModal button.btn-close:focus {
+    box-shadow: none;
+}
+div#editModal .modal-header {
+    border: none;
+    padding-bottom: 0;
+}
+div#editModal .modal-body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+div#editModal .modal-footer {
+    border: none;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+div#editModal .modal-footer button.btn.btn-primary {
+    background: #000;
+    color: #fff;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 8px;
+    width: 28%;
+    font-weight: 500;
+    border: none;
+    font-size: 18px;
+}
+div#editModal .modal-body input {
+    border-color: #000;
+}
+div#editModal .modal-footer button.btn.btn-primary:hover{
+	background-color: #f15a29;
+}
+
+div#editModal .form-control:focus {
+    border-color: #f15a2980;
+}
+
+h5#editModalLabel {
+    text-align: left;
+    color: #f15a29;
+    margin-bottom: 0;
+    font-size: 2rem;
+    padding-bottom: 5px;
 }
 div#editModal .modal-content span.close-btn {
     text-align: right;

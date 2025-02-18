@@ -29,18 +29,18 @@ class VendorController extends Controller
 
     public function ProfileSetting(Request $request)
 	{
-		$vendorId = Auth::guard('user')->user()->id;
-        $data['customer'] = User::where('id', $vendorId)->first();
-        $data['countries'] = DB::table('master_country')->select('country_id','country_name')->where('country_status',1)->get();
-        $data['state'] = DB::table('master_state')
-							->select('state_id', 'state_name')
-							->orderBy('state_name', 'asc') 
-							->get();
-        $data['city']  = DB::table('master_city')->select('city_id','city_name')->orderBy('city_name', 'asc') ->get();
-		$data['language'] = Language::all();
-        $data['UserLanguage'] = UserLanguage::where('user_id', auth('user')->id())->get();
-        $data['subjects'] = Subject::where('is_deleted','0')->get();
-        $data['userSubject'] = GuruerSubject::where('user_id', auth('user')->id())->get();
+		$vendorId				= Auth::guard('user')->user()->id;
+        $data['customer'] 		= User::where('id', $vendorId)->first();
+        $data['countries'] 		= DB::table('master_country')->select('country_id','country_name')->where('country_status',1)->get();
+        $data['state'] 			= DB::table('master_state')
+										->select('state_id', 'state_name')
+										->orderBy('state_name', 'asc') 
+										->get();
+        $data['city']  			= DB::table('master_city')->select('city_id','city_name')->orderBy('city_name', 'asc') ->get();
+		$data['language'] 		= Language::all();
+        $data['UserLanguage'] 	= UserLanguage::where('user_id', $vendorId)->get();
+        $data['subjects'] 		= Subject::where('is_deleted','0')->get();
+        $data['userSubject'] 	= GuruerSubject::where('user_id', $vendorId)->get();
 
 		return view("front.vendor.guru_profile",$data);
 	}
